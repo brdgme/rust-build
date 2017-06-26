@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
 
 # Build
 WORKDIR /src
-ENTRYPOINT curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly && \
+ENTRYPOINT \
+  apt-get update && \
+  apt-get dist-upgrade -y && \
+  curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly && \
   ~/.cargo/bin/cargo build --verbose --release && \
   ~/.cargo/bin/cargo test --verbose --release
